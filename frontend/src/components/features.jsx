@@ -88,11 +88,10 @@ const Features = () => {
             </div>
             <div className="flex-grow sm:pl-6 mt-6 sm:mt-0">
               <h2 className="font-medium title-font text-gray-900 mb-1 text-xl">
-                The 400 Blows
+                Accountability
               </h2>
               <p className="leading-relaxed">
-                VHS cornhole pop-up, try-hard 8-bit iceland helvetica. Kinfolk
-                bespoke try-hard cliche palo santo offal.
+                ManyNotes helps you keep track of your progress by showing you how many notes you've written
               </p>
             </div>
           </div>
@@ -121,11 +120,10 @@ const Features = () => {
             </div>
             <div className="flex-grow sm:pl-6 mt-6 sm:mt-0">
               <h2 className="font-medium title-font text-gray-900 mb-1 text-xl">
-                Neptune
+                Rich User Experience
               </h2>
               <p className="leading-relaxed">
-                VHS cornhole pop-up, try-hard 8-bit iceland helvetica. Kinfolk
-                bespoke try-hard cliche palo santo offal.
+                ManyNotes is designed to be easy to use and intuitive
               </p>
             </div>
           </div>
