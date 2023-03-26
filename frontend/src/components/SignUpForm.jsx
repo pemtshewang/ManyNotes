@@ -1,6 +1,6 @@
 import signUpIcon from "../assets/signUpIcon.png";
 import { Link } from "react-router-dom";
-export default function LoginForm(props) {
+export default function LoginForm(toggle) {
   return (
     <div className="w-full z-50">
       <form className="bg-y-bg px-10 mb-4 w-max">
@@ -51,8 +51,11 @@ export default function LoginForm(props) {
             Sign Up
           </button>
           <Link
-            to="/forgot-password"
+            to="/#sign-in"
             className="py-3 font-bold text-black underline font-raleway mt-5"
+            onClick={() => {
+                toggle();
+            }}
           >
             Already have an account? Sign In!
           </Link>
