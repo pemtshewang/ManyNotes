@@ -12,6 +12,10 @@ import SignUpForm from "../src/components/SignUpForm";
 const Index = () => {
   const [isLoginOpen, setIsLoginOpen] = React.useState(false);
   const [isSignUpOpen, setIsSignUpOpen] = React.useState(false);
+  const toggle= () => {
+    setIsLoginOpen( prevState => !prevState)
+    setIsSignUpOpen( prevState => !prevState)
+  }
   return (
     <main className="bg-y-bg h-screen">
       {/* The model component goes here */}
@@ -20,6 +24,7 @@ const Index = () => {
           isOpen={isLoginOpen}
           setIsOpen={setIsLoginOpen}
           component={<LoginForm />}
+          toggle={toggle}
         />
       )}
       {
@@ -28,6 +33,7 @@ const Index = () => {
             isOpen={isSignUpOpen}
             setIsOpen={setIsSignUpOpen}
             component={<SignUpForm />}
+            toggle={toggle}
           />
         )
       }

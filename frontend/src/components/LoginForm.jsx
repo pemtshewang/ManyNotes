@@ -1,6 +1,10 @@
 import loginIcon from "../assets/loginIcon.png";
 import { Link } from "react-router-dom";
-export default function LoginForm(props) {
+import { useContext } from "react";
+import { DialogContext } from "../../context/dialogContext";
+
+export default function LoginForm() {
+    const { toggle } = useContext(DialogContext);
   return (
     <div className="w-full z-50">
       <form className="bg-y-bg px-10 mb-4 w-max">
@@ -41,8 +45,9 @@ export default function LoginForm(props) {
             Forgot Password?
           </Link>
           <Link
-            to="/forgot-password"
+            to="/#sign-up"
             className="py-3 font-bold text-black underline font-raleway"
+            onClick={() => toggle()}
           >
             Don't have an account? Sign Up!
           </Link>

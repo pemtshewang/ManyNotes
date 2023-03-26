@@ -1,6 +1,10 @@
 import signUpIcon from "../assets/signUpIcon.png";
 import { Link } from "react-router-dom";
-export default function LoginForm(toggle) {
+import { useContext } from "react";
+import { DialogContext } from "../../context/dialogContext";
+
+export default function LoginForm() {
+  const { toggle } = useContext(DialogContext);
   return (
     <div className="w-full z-50">
       <form className="bg-y-bg px-10 mb-4 w-max">
@@ -54,7 +58,7 @@ export default function LoginForm(toggle) {
             to="/#sign-in"
             className="py-3 font-bold text-black underline font-raleway mt-5"
             onClick={() => {
-                toggle();
+              toggle();
             }}
           >
             Already have an account? Sign In!
