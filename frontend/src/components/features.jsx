@@ -1,7 +1,11 @@
 const Features = () => {
   return (
-    <section className="text-gray-600 body-font bg-y-bg ne-margin" id="features">
-      <div className="container px-5 py-24 mx-auto flex flex-wrap">
+    <section
+      className="text-gray-600 body-font bg-y-bg ne-margin"
+      id="features"
+    >
+      <div className="text-3xl font-raleway font-extrabold mx-auto text-center pt-20 tracking-wider">Why ManyNotes?</div>
+      <div className="container px-5 py-10 mx-auto flex flex-wrap">
         <div className="flex relative pt-10 pb-20 sm:items-center md:w-2/3 mx-auto">
           <div className="h-full w-6 absolute inset-0 flex items-center justify-center">
             <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
@@ -28,7 +32,8 @@ const Features = () => {
                 Privacy
               </h2>
               <p className="leading-relaxed">
-                ManyNotes is a private note taking app. We don't share any of your notes
+                ManyNotes is a private note taking app. We don't share any of
+                your notes
               </p>
             </div>
           </div>
@@ -59,7 +64,8 @@ const Features = () => {
                 Consistency
               </h2>
               <p className="leading-relaxed">
-                We regularly sync your notes to the cloud so you can access them from anywhere
+                We regularly sync your notes to the cloud so you can access them
+                from anywhere
               </p>
             </div>
           </div>
@@ -91,7 +97,8 @@ const Features = () => {
                 Accountability
               </h2>
               <p className="leading-relaxed">
-                ManyNotes helps you keep track of your progress by showing you how many notes you've written
+                ManyNotes helps you keep track of your progress by showing you
+                how many notes you've written
               </p>
             </div>
           </div>

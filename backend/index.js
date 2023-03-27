@@ -2,10 +2,12 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const authenticateToken = require("./middleware/authToken");
+const cors = require("cors")
 
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors())
 
 // user routes 
 app.use("/api", require("./routers/user.routes"));

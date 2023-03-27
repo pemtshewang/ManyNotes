@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 const Root = () => {
   return (
-    <div className="container px-8">
+    <div className="px-8">
       <Outlet />
     </div>
   );

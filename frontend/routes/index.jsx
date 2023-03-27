@@ -17,7 +17,7 @@ const Index = () => {
     setIsSignUpOpen( prevState => !prevState)
   }
   return (
-    <main className="bg-y-bg h-screen">
+    <main className="bg-y-bg">
       {/* The model component goes here */}
       {isLoginOpen && (
         <MyDialog

@@ -9,6 +9,7 @@ import UserNotePage from '../routes/userNotes'
 import UserNoteList from '../routes/UserNoteList'
 import EditNote from '../routes/EditNote'
 import CreateNote from '../routes/CreateNote'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 
 const router = createBrowserRouter([
   {
@@ -43,8 +44,12 @@ const router = createBrowserRouter([
   }
 ])
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
     <RouterProvider router={router}/>
+    </QueryClientProvider>
   </React.StrictMode>,
 )
