@@ -71,7 +71,7 @@ const Index = () => {
               <img className="h-25 w-60" src={Logo} alt={"image of cat"} />
             </div>
             <div className="mx-auto py-5">
-              <p className="text-xl font-raleway font-light">
+              <p className="text-xl font-raleway font-extrabold">
                 Never lose a note again with ManyNotes
               </p>
             </div>

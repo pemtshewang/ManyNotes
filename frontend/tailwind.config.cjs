@@ -20,6 +20,7 @@ module.exports = {
       },
       width:{
         "w-60": "300px",
+        "w-450": "450px",
       },
     },
     plugins: [],

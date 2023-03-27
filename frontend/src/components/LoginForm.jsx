@@ -2,12 +2,21 @@ import loginIcon from "../assets/loginIcon.png";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { DialogContext } from "../../context/dialogContext";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
 
 export default function LoginForm() {
-    const { toggle } = useContext(DialogContext);
+  const { toggle } = useContext(DialogContext);
+  const LoginSchema = yup.object().shape({
+    email: yup.string().required("Email is required"),
+    password: yup.string().required("Password is required"),
+  });
+  const { register, handleSubmit, errors } = useForm({
+    validationSchema: LoginSchema,
+  });
   return (
     <div className="w-full z-50">
-      <form className="bg-y-bg px-10 mb-4 w-max">
+      <form className="bg-y-bg px-10 mb-4 w-max" onSubmit={handleSubmit()}>
         <div className="flex justify-center py-10">
           <img
             className="w-10 h-10"

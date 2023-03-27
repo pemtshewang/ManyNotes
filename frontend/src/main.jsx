@@ -4,8 +4,11 @@ import App from './App'
 import './index.css'
 import Index from '../routes'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import User from '../routes/userDetail'
 import Error from './components/Error'
+import UserNotePage from '../routes/userNotes'
+import UserNoteList from '../routes/UserNoteList'
+import EditNote from '../routes/EditNote'
+import CreateNote from '../routes/CreateNote'
 
 const router = createBrowserRouter([
   {
@@ -18,9 +21,24 @@ const router = createBrowserRouter([
         element: <Index />,
       },
       {
-        path: '/users/',
-        element: <User />,
-      },
+        path: 'user/:id/notes/',
+        element: <UserNotePage />,
+        //nest the router here
+        children: [
+          {
+            index: true,
+            element: <UserNoteList />,
+          },
+          {
+            path: 'edit/:noteId',
+            element: <EditNote />,
+          },
+          {
+            path: 'create',
+            element: <CreateNote />,
+          }
+        ]
+      }
     ]
   }
 ])
