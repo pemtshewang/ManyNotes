@@ -11,26 +11,33 @@ import { useEffect } from "react";
 export default function SignUpForm() {
   //creating the function to submit the form
   const signUp = async (data) => {
-    const response = await axios.post("http://localhost:3000/api/user/register", data);
+    const response = await axios.post(
+      "http://localhost:3000/api/user/register",
+      data
+    );
     return response.data;
   };
   //creating the mutation
-  const mutation = useMutation(
-    {
-      mutationFn: signUp,
+  const mutation = useMutation({
+    mutationFn: signUp,
+    onSuccess: (data) => {},
+    onError: (error) => {
+      //error handling
     },
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    }
-  );
+  });
 
   //creating the validation schema
   const SignUpSchema = yup.object().shape({
     name: yup.string().required("Name is required"),
-    email: yup.string().required("Email is required"),
-    password: yup.string().required("Password is required"),
+    email: yup.string().email("Email is invalid").required("Email is required"),
+    password: yup
+      .string()
+      .min(8, "Password must be at least 8 characters long")
+      .matches(
+        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/,
+        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+      )
+      .required("Password is required"),
     password_confirmation: yup
       .string()
       .required("Password confirmation is required"),
@@ -53,7 +60,7 @@ export default function SignUpForm() {
 
   const navigate = useNavigate();
 
-  const onSubmit = async(data) => {
+  const onSubmit = async (data) => {
     mutation.mutate(data);
   };
   useEffect(() => {
