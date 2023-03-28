@@ -7,6 +7,7 @@ import * as yup from "yup";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { useEffect } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function SignUpForm() {
   //creating the function to submit the form
@@ -33,10 +34,6 @@ export default function SignUpForm() {
     password: yup
       .string()
       .min(8, "Password must be at least 8 characters long")
-      .matches(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[^\w\s]).{8,}$/,
-        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
-      )
       .required("Password is required"),
     password_confirmation: yup
       .string()
@@ -48,8 +45,9 @@ export default function SignUpForm() {
     handleSubmit,
     watch,
     formState: { errors },
+    reset
   } = useForm({
-    validationSchema: SignUpSchema,
+    resolver: yupResolver(SignUpSchema),
   });
 
   const passwordsMatch = () => {
@@ -62,6 +60,7 @@ export default function SignUpForm() {
 
   const onSubmit = async (data) => {
     mutation.mutate(data);
+    reset();
   };
   useEffect(() => {
     if (mutation.isSuccess) {
@@ -110,9 +109,9 @@ export default function SignUpForm() {
             </p>
           )}
         </div>
-        <div className="mb-1">
+        <div className="mb-4">
           <input
-            className="w-full shadow appearance-none border-4 border-black bg-y-bg rounded py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+            className="w-full shadow appearance-none border-4 border-black bg-y-bg rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             id="password"
             name="password"
             type="password"
@@ -125,11 +124,11 @@ export default function SignUpForm() {
             </p>
           )}
         </div>
-        <div className="mb-6">
+        <div className="mb-4">
           <input
             className={`w-full shadow appearance-none ${
               passwordsMatch() ? "border-black" : "border-red-500"
-            } border-4 border-black bg-y-bg rounded py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
+            } border-4 border-black bg-y-bg rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
             id="password"
             name="password_confirmation"
             type="password"

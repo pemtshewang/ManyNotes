@@ -4,19 +4,49 @@ import { useContext } from "react";
 import { DialogContext } from "../../context/dialogContext";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "@tanstack/react-query";
 
 export default function LoginForm() {
   const { toggle } = useContext(DialogContext);
   const LoginSchema = yup.object().shape({
-    email: yup.string().required("Email is required"),
+    email: yup.string().email("Email Invalid").required("Email is required"),
     password: yup.string().required("Password is required"),
   });
-  const { register, handleSubmit, errors } = useForm({
-    validationSchema: LoginSchema,
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    resolver: yupResolver(LoginSchema),
   });
+  const login = async (data) => {
+    const response = await axios.post(
+      "http://localhost:3000/api/user/login",
+      data
+    );
+    return response.data;
+  };
+  const mutation = useMutation({
+    mutationFn: login,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+  const onSubmit = (data) => {
+    mutation.mutate(data);
+    reset();
+  };
   return (
     <div className="w-full z-50">
-      <form className="bg-y-bg px-10 mb-4 w-max" onSubmit={handleSubmit()}>
+      <form
+        className="bg-y-bg px-10 mb-4 w-max"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <div className="flex justify-center py-10">
           <img
             className="w-10 h-10"
@@ -30,7 +60,13 @@ export default function LoginForm() {
             id="username"
             type="text"
             placeholder="Enter your email"
+            {...register("email")}
           />
+          {errors.email && (
+            <p className="text-red-500 text-xs italic">
+              {errors.email.message}
+            </p>
+          )}
         </div>
         <div className="mb-6">
           <input
@@ -38,7 +74,13 @@ export default function LoginForm() {
             id="password"
             type="password"
             placeholder="Enter your password"
+            {...register("password")}
           />
+          {errors.password && (
+            <p className="text-red-500 text-xs italic">
+              {errors.password.message}
+            </p>
+          )}
         </div>
         <div className="flex flex-col items-center justify-between">
           <button
