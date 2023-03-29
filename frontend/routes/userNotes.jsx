@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 
 const UserNotePage = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <main className="bg-y-bg h-screen">
       <nav className="flex pt-5 pl-5">
@@ -11,7 +12,13 @@ const UserNotePage = () => {
             <div className="font-raleway text-2xl font-black">Notes</div>
           </div>
         </NavLink>
-        <div className="ml-auto py-5 px-9">UserSession</div>
+        <div className="ml-auto py-5 px-9">
+          {user.name}
+          <div className="flex flex-col border-2 border-black hover:visible">
+            <NavLink>Edit My Profile</NavLink>
+            <NavLink>Logout</NavLink>
+          </div>
+        </div>
       </nav>
       <div className="container">
         <div className="flex flex-col items-center p-10">
