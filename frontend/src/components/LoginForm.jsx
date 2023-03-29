@@ -1,14 +1,12 @@
 import loginIcon from "../assets/loginIcon.png";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { DialogContext } from "../../context/dialogContext";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 export default function LoginForm() {
-  const { toggle } = useContext(DialogContext);
   const LoginSchema = yup.object().shape({
     email: yup.string().email("Email Invalid").required("Email is required"),
     password: yup.string().required("Password is required"),
@@ -28,10 +26,13 @@ export default function LoginForm() {
     );
     return response.data;
   };
+  const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: login,
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       console.log(data);
+      await localStorage.setItem("user", JSON.stringify(data));
+      navigate(`/user/:${data.id}/notes/`);
     },
     onError: (error) => {
       console.log(error);
@@ -85,7 +86,7 @@ export default function LoginForm() {
         <div className="flex flex-col items-center justify-between">
           <button
             className="font-raleway text-black font-bold bg-white border border-solid border-black outline outline-black outline-offset-2 py-2 px-5"
-            type="button"
+            type="submit"
           >
             Sign In
           </button>
