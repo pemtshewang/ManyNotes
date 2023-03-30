@@ -1,10 +1,18 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import LogoutDialog from "../src/components/LogoutDialog";
 
 const UserNotePage = () => {
   const user = JSON.parse(localStorage.getItem("user"));
+  const [isLogoutDialogOpen, setIsLogoutDialogOpen] = React.useState(false);
   return (
     <main className="bg-y-bg h-screen">
+      {isLogoutDialogOpen && (
+        <LogoutDialog
+          isOpen={isLogoutDialogOpen}
+          setIsOpen={setIsLogoutDialogOpen}
+        />
+      )}
       <nav className="flex pt-5 pl-5">
         <NavLink to="/">
           <div className="flex flex-col ">
@@ -13,10 +21,14 @@ const UserNotePage = () => {
           </div>
         </NavLink>
         <div className="ml-auto py-5 px-9">
-          {user.name}
-          <div className="flex flex-col border-2 border-black hover:visible">
-            <NavLink>Edit My Profile</NavLink>
-            <NavLink>Logout</NavLink>
+          <div className="flex flex-col invisible hover:visible">
+            <span className="hover:text-blue-500 visible">{user.name}</span>
+            <div className="border-2 border-black flex flex-col px-4 py-3 mt-3 w-max">
+              <NavLink className="hover:underline hover:text-red-500 font-raleway">Edit My Profile</NavLink>
+              <NavLink className="hover:underline hover:text-red-500 font-raleway"
+              onClick={() => setIsLogoutDialogOpen(true)}
+              >Logout</NavLink>
+            </div>
           </div>
         </div>
       </nav>

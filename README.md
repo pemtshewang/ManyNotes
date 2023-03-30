@@ -18,3 +18,5 @@
 
 *Note*
 Send Me PR , I will accept all of your contributions
+
+- [1] - Create signout  function with prompt features
