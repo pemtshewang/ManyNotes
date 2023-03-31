@@ -4,14 +4,20 @@ import AddButton from "../src/assets/add.png";
 import DeleteButton from "../src/assets/delete.png";
 import EditButton from "../src/assets/edit.png";
 import DeleteDialog from "../src/components/DeleteModal";
+import { useNavigate } from "react-router-dom";
 
 const UserNoteList = () => {
   const [isDeleteOpen, setIsDeleteOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem("user"));
   return (
     <div className="flex flex-col w-max">
       <div className="flex brand py-5">
         <div className="text-xl font-bold font-raleway">My Notes</div>
-        <NavLink className="ml-auto">
+        <NavLink className="ml-auto"
+        onClick={
+          navigate(`/user/${user.id}/notes/create`)
+        }>
           <img className="h-9 w-9" src={AddButton} alt="add button" />
         </NavLink>
       </div>

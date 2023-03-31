@@ -1,7 +1,9 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import { useNavigate } from "react-router-dom";
 
-const LogoutDialog = () => {
+const LogoutDialog = (props) => {
+    const navigate = useNavigate();
   return (
     <Transition
       show={props.isOpen}
@@ -24,7 +26,7 @@ const LogoutDialog = () => {
             onClick={() => {
                 localStorage.removeItem("user");
                 props.setIsOpen(false);
-                props.history.push("/");
+                navigate("/");
                 }}
             >Logout</button>
             <button className="ml-auto border-2 border-black p-2 font-semibold" onClick={() => props.setIsOpen(false)}>Cancel</button>

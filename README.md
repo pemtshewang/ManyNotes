@@ -19,4 +19,6 @@
 *Note*
 Send Me PR , I will accept all of your contributions
 
-- [1] - Create signout  function with prompt features
+- [X] - Create signout  function with prompt feature
+- [ ] - Create the navbar height to be fixed  according to the logo h and not the height of the dialog content
+- [ ] - create the navbar to be fixed on the top of the page

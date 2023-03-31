@@ -21,9 +21,9 @@ const UserNotePage = () => {
           </div>
         </NavLink>
         <div className="ml-auto py-5 px-9">
-          <div className="flex flex-col invisible hover:visible">
-            <span className="hover:text-blue-500 visible">{user.name}</span>
-            <div className="border-2 border-black flex flex-col px-4 py-3 mt-3 w-max">
+          <div className="flex flex-col">
+            <span className="hover:text-blue-500">{user.name}</span>
+            <div className="border-2 border-black flex flex-col px-4 py-3 mt-3 w-max invisible group-hover:visible">
               <NavLink className="hover:underline hover:text-red-500 font-raleway">Edit My Profile</NavLink>
               <NavLink className="hover:underline hover:text-red-500 font-raleway"
               onClick={() => setIsLogoutDialogOpen(true)}
@@ -32,8 +32,8 @@ const UserNotePage = () => {
           </div>
         </div>
       </nav>
-      <div className="container">
-        <div className="flex flex-col items-center p-10">
+      <div className="container m-0">
+        <div className="flex flex-col items-center p-5">
           <h2 className="font-raleway text-black font-semibold text-xl tracking-wider">
             You dream, you aim and you achieve.
           </h2>
@@ -41,7 +41,7 @@ const UserNotePage = () => {
             <i>Pem Tshewang</i>
           </p>
         </div>
-        <div className="container mx-auto w-max border-4 border-black p-5">
+        <div className="container mx-auto w-max border-4 border-black p-3">
           <Outlet />
         </div>
       </div>
