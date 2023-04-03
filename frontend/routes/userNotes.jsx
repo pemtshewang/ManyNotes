@@ -1,10 +1,8 @@
 import React from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import LogoutDialog from "../src/components/LogoutDialog";
-import { useQuery, QueryClientProvider } from "@tanstack/react-query";
 
 const UserNotePage = () => {
-  const queryClient = useQuery();
   const user = JSON.parse(localStorage.getItem("user"));
   const [isLogoutDialogOpen, setIsLogoutDialogOpen] = React.useState(false);
   return (
@@ -46,10 +44,8 @@ const UserNotePage = () => {
             <i>Pem Tshewang</i>
           </p>
         </div>
-        <div className="container mx-auto w-max border-4 border-black p-3">
-          <QueryClientProvider client={queryClient}>
-            <Outlet />
-          </QueryClientProvider>
+        <div className="note-container container mx-auto border-4 border-black p-3">
+          <Outlet />
         </div>
       </div>
     </main>

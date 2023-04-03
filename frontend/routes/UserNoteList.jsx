@@ -21,13 +21,14 @@ const UserNoteList = () => {
     queryKey: ["notes", user.id],
     queryFn: () => getUserNotes(user.id),
   });
+
   return (
-    <div className="flex flex-col w-max">
+    <div className="flex flex-col">
       <div className="flex brand py-5">
         <div className="text-xl font-bold font-raleway">My Notes</div>
         <NavLink
           className="ml-auto"
-          onClick={navigate(`/user/${user.id}/notes/create`)}
+          to={'create'}
         >
           <img className="h-9 w-9" src={AddButton} alt="add button" />
         </NavLink>
@@ -77,7 +78,7 @@ const UserNoteList = () => {
           );
         })
       ) : (
-        <div className="text-center">No notes found</div>
+        <div className="text-center font-raleway font-bold">No notes found, Click the plus button to create one</div>
       )}
     </div>
   );

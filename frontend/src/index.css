@@ -6,3 +6,7 @@
 .profile-drop:hover div{
     visibility: visible;
 }
+.note-container{
+    max-width: 45rem;
+    min-width: 25rem;
+}
