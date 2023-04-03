@@ -3,3 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
+.profile-drop:hover div{
+    visibility: visible;
+}
