@@ -56,8 +56,6 @@ export default function SignUpForm() {
     return password === password_confirmation;
   };
 
-  const navigate = useNavigate();
-
   const onSubmit = async (data) => {
     mutation.mutate(data);
     reset();
