@@ -32,7 +32,7 @@ export default function LoginForm() {
     onSuccess: async (data) => {
       console.log(data);
       await localStorage.setItem("user", JSON.stringify(data));
-      navigate(`/user/:${data.id}/notes/`);
+      navigate(`/user/${data.id}/notes/`);
     },
     onError: (error) => {
       console.log(error);
