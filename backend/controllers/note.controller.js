@@ -9,7 +9,7 @@ const getNotes = async (req, res) => {
             select: {
                 id: true,
                 title: true,
-                content: true,
+                content: true
             }
         });
         res.json(notes)
@@ -62,4 +62,4 @@ const deleteNote = async (req, res) => {
     }
 }
 
-module.exports = { getNotes, postNote, updateNote, deleteNote}
+module.exports = { getNotes, postNote, updateNote, deleteNote }
