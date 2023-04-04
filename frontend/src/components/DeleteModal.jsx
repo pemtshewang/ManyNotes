@@ -1,7 +1,18 @@
 import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
+import NoteIdContext from "../../context/noteIdContext";
+import { useContext } from "react";
+import axios from "axios"
+import { useNavigate } from "react-router-dom";
+
+const user = JSON.parse(localStorage.getItem("user"));
+const deleteNote = async(noteId) => {
+  await axios.delete(`http://localhost:3000/api/user/${user.id}/note/delete/${noteId}`)
+}
 
 export default function DeleteDialog(props) {
+  const {deleteNoteId, setDeleteNoteId} = useContext(NoteIdContext);
+  const navigate = useNavigate();
   return (
     <Transition
       show={props.isOpen}
@@ -20,7 +31,17 @@ export default function DeleteDialog(props) {
           <div className="border-4 border-black flex flex-col bg-y-bg p-5">
             <h4 className="font-raleway font-bold text-xl">Do you want to delete this note?</h4>
             <div className="flex p-3">
-            <button className="border-2 border-black p-2 font-semibold">Delete</button>
+            <button className="border-2 border-black p-2 font-semibold"
+            onClick={
+              async() => {
+                console.log(deleteNoteId);
+                deleteNote(deleteNoteId);
+                await setDeleteNoteId(null);
+                props.setIsOpen(false);
+                navigate(`/user/${user.id}/notes`);
+              }
+            }
+            >Delete</button>
             <button className="ml-auto border-2 border-black p-2 font-semibold" onClick={() => props.setIsOpen(false)}>Cancel</button>
             </div>
           </div>
