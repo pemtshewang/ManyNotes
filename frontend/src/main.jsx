@@ -9,6 +9,7 @@ import UserNotePage from '../routes/userNotes'
 import UserNoteList from '../routes/UserNoteList'
 import CreateNote from '../routes/CreateNote'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import EditNote from '../routes/EditNote'
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
           },
           {
             path: ':noteId/edit',
-            element: <CreateNote />,
+            element: <EditNote />,
           },
           {
             path: 'create',

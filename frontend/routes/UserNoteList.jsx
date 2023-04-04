@@ -93,6 +93,15 @@ const UserNoteList = () => {
                   <div className="ml-auto flex">
                     <NavLink
                       className="pl-3"
+                      onClick={
+                        () => {
+                          localStorage.setItem("editNote",
+                          JSON.stringify({
+                            title: note.title,
+                            content: note.content
+                          }))
+                        }
+                      }
                       to={`/user/${user.id}/notes/${note.id}/edit`}
                       title="Edit Button"
                     >
