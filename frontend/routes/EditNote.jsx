@@ -18,16 +18,20 @@ const note = JSON.parse(localStorage.getItem("editNote"));
 //component
 const EditNote = () => {
   // Fetching user from the localStorage async
+  // Fetching user from the localStorage async
   const [user, setUser] = React.useState(null);
   const [title, setTitle] = React.useState(note.title);
   const [content, setContent] = React.useState(note.content);
+
   const submitNote = async () => {
+    const updatedNote = { ...note, title, content }; // update note object with new values
     const res = await axios.put(
       `http://localhost:3000/api/user/${user.id}/note/update/${note.id}`,
-      note
+      updatedNote // send updated note object to the server
     );
     return res.data;
   };
+
   useEffect(() => {
     const fetchUser = async () => {
       const userFromStorage = await getUserFromStorage();
@@ -35,6 +39,7 @@ const EditNote = () => {
     };
     fetchUser();
   }, []);
+
   const getUserFromStorage = async () => {
     return new Promise((resolve) => {
       const user = localStorage.getItem("user");
@@ -45,24 +50,15 @@ const EditNote = () => {
       }
     });
   };
+
   const navigate = useNavigate();
-  const mutation = useMutation({
-    mutationFn: submitNote,
-    onSuccess: (data) => {
-      console.log(data);
-      navigate(`/user/${user.id}/notes`);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
-  const onSubmit = (data) => {
-    mutation.mutate({
-      ...data,
-      user_id: user.id,
-    });
-    reset();
+
+  const submit = (e) => {
+    e.preventDefault();
+    submitNote();
+    navigate(`/user/${user.id}/notes`);
   };
+
   const {
     register,
     handleSubmit,
@@ -71,9 +67,8 @@ const EditNote = () => {
   } = useForm({
     resolver: yupResolver(NoteSchema),
   });
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form>
       <div className="flex flex-col">
         <div className="flex brand">
           <input
@@ -103,6 +98,7 @@ const EditNote = () => {
           <button
             type="submit"
             className="border-2 border-black py-2 px-3"
+            onClick={submit}
           >
             Save
           </button>
