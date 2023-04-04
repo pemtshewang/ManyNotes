@@ -26,7 +26,7 @@ const UserNoteList = () => {
     data: notes,
     isLoading,
     isError,
-    refetch
+    refetch,
   } = useQuery({
     queryKey: ["notes", user.id],
     queryFn: () => getUserNotes(user.id),
@@ -81,19 +81,25 @@ const UserNoteList = () => {
         ) : notes.length > 0 ? (
           notes.map((note) => {
             return (
-              <div key={note.id} className="border-2 border-black px-3 w-full mt-2">
+              <div
+                key={note.id}
+                className="border-2 border-black px-3 w-full mt-2"
+              >
                 <p>23/23/23 14:22</p>
                 <div className="flex mt-3">
                   <NavLink className="underline" to="#">
                     {note.title}
                   </NavLink>
                   <div className="ml-auto flex">
-                    <NavLink className="pl-3" title="Edit Button">
+                    <NavLink
+                      className="pl-3"
+                      to={`/user/${user.id}/notes/${note.id}/edit`}
+                      title="Edit Button"
+                    >
                       <img
                         className="h-5 w-5"
                         src={EditButton}
                         alt="edit button"
-                        to={"/user/"}
                       />
                     </NavLink>
                     <NavLink
@@ -113,11 +119,13 @@ const UserNoteList = () => {
             );
           })
         ) : (
-          <div className="font-raleway text-tracking-wider font-semibold">You have no notes now, click the plus icon button to create one</div>
+          <div className="font-raleway text-tracking-wider font-semibold">
+            You have no notes now, click the plus icon button to create one
+          </div>
         )}
       </div>
     </NoteIdContext.Provider>
   );
 };
 
-export default UserNoteList; 
+export default UserNoteList;

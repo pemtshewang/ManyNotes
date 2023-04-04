@@ -7,7 +7,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Error from './components/Error'
 import UserNotePage from '../routes/userNotes'
 import UserNoteList from '../routes/UserNoteList'
-import EditNote from '../routes/EditNote'
 import CreateNote from '../routes/CreateNote'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 
@@ -31,8 +30,8 @@ const router = createBrowserRouter([
             element: <UserNoteList />,
           },
           {
-            path: 'edit/:noteId',
-            element: <EditNote />,
+            path: ':noteId/edit',
+            element: <CreateNote />,
           },
           {
             path: 'create',
