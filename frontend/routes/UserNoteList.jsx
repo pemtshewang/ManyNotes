@@ -93,6 +93,7 @@ const UserNoteList = () => {
                         className="h-5 w-5"
                         src={EditButton}
                         alt="edit button"
+                        to={"/user/"}
                       />
                     </NavLink>
                     <NavLink

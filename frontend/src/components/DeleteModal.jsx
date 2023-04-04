@@ -2,18 +2,40 @@ import { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import NoteIdContext from "../../context/noteIdContext";
 import { useContext } from "react";
-import axios from "axios"
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-let user = JSON.parse(localStorage.getItem("user"));
-
-const deleteNote = async(noteId) => {
-  await axios.delete(`http://localhost:3000/api/user/${user.id}/note/delete/${noteId}`)
-}
+import { useEffect } from "react";
+import React from "react"
 
 export default function DeleteDialog(props) {
-  const {deleteNoteId, setDeleteNoteId} = useContext(NoteIdContext);
+  const { deleteNoteId, setDeleteNoteId } = useContext(NoteIdContext);
   const navigate = useNavigate();
+  const [user, setUser] = React.useState(null);
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userFromStorage = await getUserFromStorage();
+      setUser(userFromStorage);
+    };
+    fetchUser();
+  }, []);
+
+  const getUserFromStorage = async () => {
+    return new Promise((resolve) => {
+      const user = localStorage.getItem("user");
+      if (user) {
+        resolve(JSON.parse(user));
+      } else {
+        resolve(null);
+      }
+    });
+  };
+  const deleteNote = async (noteId) => {
+    if (!user) {
+      throw new Error("User is not logged in");
+    }
+    const endpoint = `http://localhost:3000/api/user/${user.id}/note/delete/${noteId}`;
+    await axios.delete(endpoint);
+  };
   return (
     <Transition
       show={props.isOpen}
@@ -30,18 +52,26 @@ export default function DeleteDialog(props) {
         {/* Full-screen container to center the panel */}
         <Dialog.Panel className="z-50 flex flex-col items-center justify-center fixed inset-0 bg-black bg-opacity-50">
           <div className="border-4 border-black flex flex-col bg-y-bg p-5">
-            <h4 className="font-raleway font-bold text-xl">Do you want to delete this note?</h4>
+            <h4 className="font-raleway font-bold text-xl">
+              Do you want to delete this note?
+            </h4>
             <div className="flex p-3">
-            <button className="border-2 border-black p-2 font-semibold"
-            onClick={
-              async() => {
-                console.log(deleteNoteId);
-                await deleteNote(deleteNoteId);
-                props.setIsOpen(false) && navigate(`/user/${user.id}/notes`);
-              }
-            }
-            >Delete</button>
-            <button className="ml-auto border-2 border-black p-2 font-semibold" onClick={() => props.setIsOpen(false)}>Cancel</button>
+              <button
+                className="border-2 border-black p-2 font-semibold"
+                onClick={async () => {
+                  console.log(deleteNoteId);
+                  await deleteNote(deleteNoteId);
+                  props.setIsOpen(false) && navigate(`/user/${user.id}/notes`);
+                }}
+              >
+                Delete
+              </button>
+              <button
+                className="ml-auto border-2 border-black p-2 font-semibold"
+                onClick={() => props.setIsOpen(false)}
+              >
+                Cancel
+              </button>
             </div>
           </div>
         </Dialog.Panel>
