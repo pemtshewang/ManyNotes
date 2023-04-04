@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import AddButton from "../src/assets/add.png";
 import DeleteButton from "../src/assets/delete.png";
 import EditButton from "../src/assets/edit.png";
 import DeleteDialog from "../src/components/DeleteModal";
 import axios from "axios";
-import { useQuery, useMutation, queryCache } from "@tanstack/react-query";
+import { useQuery, useMutation, QueryCache } from "@tanstack/react-query";
 import NoteIdContext from "../context/noteIdContext";
 
 const getUserNotes = async (id) => {
@@ -26,11 +26,17 @@ const UserNoteList = () => {
     data: notes,
     isLoading,
     isError,
+    refetch
   } = useQuery({
     queryKey: ["notes", user.id],
     queryFn: () => getUserNotes(user.id),
   });
 
+  useEffect(() => {
+    refetch();
+  }, [isDeleteOpen]);
+
+  const queryCache = new QueryCache();
   const deleteNoteMutation = useMutation(deleteUserNote, {
     onSuccess: () => {
       queryCache.invalidateQueries(["notes", user.id]);
@@ -106,7 +112,7 @@ const UserNoteList = () => {
             );
           })
         ) : (
-          <div>You have no notes.</div>
+          <div className="font-raleway text-tracking-wider font-semibold">You have no notes now, click the plus icon button to create one</div>
         )}
       </div>
     </NoteIdContext.Provider>

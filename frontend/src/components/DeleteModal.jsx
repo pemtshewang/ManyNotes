@@ -35,10 +35,8 @@ export default function DeleteDialog(props) {
             onClick={
               async() => {
                 console.log(deleteNoteId);
-                deleteNote(deleteNoteId);
-                await setDeleteNoteId(null);
-                props.setIsOpen(false);
-                navigate(`/user/${user.id}/notes`);
+                await deleteNote(deleteNoteId);
+                props.setIsOpen(false) && navigate(`/user/${user.id}/notes`);
               }
             }
             >Delete</button>
