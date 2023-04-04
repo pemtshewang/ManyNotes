@@ -1,4 +1,3 @@
-const jwt = require('jsonwebtoken')
 const bcrypt = require("bcrypt")
 const prisma = require('../prisma/PrismaConnect');
 
@@ -17,9 +16,7 @@ const login = async (req, res) => {
     // Comparing the password and authenticating the user
     const passwordMatches = await bcrypt.compare(password, user.password);
     if(passwordMatches) {
-        const accessToken = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1h' });
         return res.status(200).json({
-            accessToken: accessToken,
             id: user.id,
             name: user.name,
             email: user.email

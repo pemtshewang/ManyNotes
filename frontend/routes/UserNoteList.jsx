@@ -81,7 +81,7 @@ const UserNoteList = () => {
         ) : notes.length > 0 ? (
           notes.map((note) => {
             return (
-              <div className="border-2 border-black px-3 w-full mt-2">
+              <div key={note.id} className="border-2 border-black px-3 w-full mt-2">
                 <p>23/23/23 14:22</p>
                 <div className="flex mt-3">
                   <NavLink className="underline" to="#">

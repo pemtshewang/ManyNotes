@@ -1,6 +1,5 @@
 const prisma = require("../prisma/PrismaConnect");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 
 const makePassword = async(password) => {
     const saltRounds = 1
@@ -36,10 +35,7 @@ const createUser = async (req, res) => {
                 password: hashedPassword
             }
         });
-        const accessToken = jwt.sign(user, process.env.JWT_SECRET,
-            { expiresIn: '1h' });
         res.status(201).json({
-            accessToken: accessToken,
             id: user.id,
             name,
             email

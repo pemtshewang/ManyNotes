@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url = "file:A:\\ManyNotes\\backend\\notes.db"
+  url = "file:../notes.db"
 }
 
 model user {

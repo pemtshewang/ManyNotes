@@ -29,9 +29,9 @@ export default function LoginForm() {
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: login,
-    onSuccess: async (data) => {
+    onSuccess: (data) => {
       console.log(data);
-      await localStorage.setItem("user", JSON.stringify(data));
+      localStorage.setItem("user", JSON.stringify(data));
       navigate(`/user/${data.id}/notes/`);
     },
     onError: (error) => {

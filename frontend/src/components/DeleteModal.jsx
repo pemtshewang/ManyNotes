@@ -5,7 +5,8 @@ import { useContext } from "react";
 import axios from "axios"
 import { useNavigate } from "react-router-dom";
 
-const user = JSON.parse(localStorage.getItem("user"));
+let user = JSON.parse(localStorage.getItem("user"));
+
 const deleteNote = async(noteId) => {
   await axios.delete(`http://localhost:3000/api/user/${user.id}/note/delete/${noteId}`)
 }
