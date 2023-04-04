@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import AddButton from "../src/assets/add.png";
 import DeleteButton from "../src/assets/delete.png";
@@ -97,6 +97,7 @@ const UserNoteList = () => {
                         () => {
                           localStorage.setItem("editNote",
                           JSON.stringify({
+                            id: note.id,
                             title: note.title,
                             content: note.content
                           }))
