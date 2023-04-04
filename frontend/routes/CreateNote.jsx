@@ -7,16 +7,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-
-let user = JSON.parse(localStorage.getItem("user"));
-
-const submitNote = async (note) => {
-  const res = await axios.post(
-    `http://localhost:3000/api/user/${user.id}/note/create`,
-    note
-  );
-  return res.data;
-};
+import { useEffect } from "react";
 
 const NoteSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
@@ -25,6 +16,32 @@ const NoteSchema = yup.object().shape({
 
 //component
 const CreateNote = () => {
+  // Fetching user from the localStorage async
+  const [user, setUser] = React.useState(null);
+  const submitNote = async (note) => {
+    const res = await axios.post(
+      `http://localhost:3000/api/user/${user.id}/note/create`,
+      note
+    );
+    return res.data;
+  };
+  useEffect(() => {
+    const fetchUser = async () => {
+      const userFromStorage = await getUserFromStorage();
+      setUser(userFromStorage);
+    };
+    fetchUser();
+  }, []);
+  const getUserFromStorage = async () => {
+    return new Promise((resolve) => {
+      const user = localStorage.getItem("user");
+      if (user) {
+        resolve(JSON.parse(user));
+      } else {
+        resolve(null);
+      }
+    });
+  };
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: submitNote,
