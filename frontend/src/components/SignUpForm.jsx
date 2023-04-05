@@ -1,5 +1,5 @@
 import signUpIcon from "../assets/signUpIcon.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { DialogContext } from "../../context/dialogContext";
 import { useForm } from "react-hook-form";

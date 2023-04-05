@@ -7,6 +7,7 @@ import DeleteDialog from "../src/components/DeleteModal";
 import axios from "axios";
 import { useQuery, useMutation, QueryCache } from "@tanstack/react-query";
 import NoteIdContext from "../context/noteIdContext";
+import ViewDialog from "../src/components/ViewNote";
 
 const getUserNotes = async (id) => {
   const notes = await axios.get(`http://localhost:3000/api/user/${id}/notes`);
@@ -20,6 +21,11 @@ const deleteUserNote = async (noteId) => {
 const UserNoteList = () => {
   const [deleteNoteId, setDeleteNoteId] = React.useState(0);
   const [isDeleteOpen, setIsDeleteOpen] = React.useState(false);
+  const [isViewOpen, setIsViewOpen] = React.useState(false);
+  const [data, setData] = React.useState({
+    title: "",
+    content: ""
+  });
   const user = JSON.parse(localStorage.getItem("user"));
 
   const {
@@ -74,6 +80,9 @@ const UserNoteList = () => {
             onDelete={handleNoteDelete}
           />
         )}
+        {isViewOpen && (
+          <ViewDialog isOpen={isViewOpen} setIsOpen={setIsViewOpen} title={data.title} content={data.content} />
+        )}
         {isLoading ? (
           <div>Loading...</div>
         ) : isError ? (
@@ -87,22 +96,32 @@ const UserNoteList = () => {
               >
                 <p>23/23/23 14:22</p>
                 <div className="flex mt-3">
-                  <NavLink className="underline" to="#">
+                  <NavLink
+                    className="underline"
+                    onClick={() => {
+                      setData({
+                        title:note.title,
+                        content:note.content
+                      })
+                      setIsViewOpen(true)}
+                    }
+
+                  >
                     {note.title}
                   </NavLink>
                   <div className="ml-auto flex">
                     <NavLink
                       className="pl-3"
-                      onClick={
-                        () => {
-                          localStorage.setItem("editNote",
+                      onClick={() => {
+                        localStorage.setItem(
+                          "editNote",
                           JSON.stringify({
                             id: note.id,
                             title: note.title,
-                            content: note.content
-                          }))
-                        }
-                      }
+                            content: note.content,
+                          })
+                        );
+                      }}
                       to={`/user/${user.id}/notes/${note.id}/edit`}
                       title="Edit Button"
                     >
