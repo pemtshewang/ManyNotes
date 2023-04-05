@@ -61,8 +61,6 @@ const EditNote = () => {
 
   const {
     register,
-    handleSubmit,
-    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(NoteSchema),
