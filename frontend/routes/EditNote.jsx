@@ -14,12 +14,12 @@ const NoteSchema = yup.object().shape({
   content: yup.string().required("Content is required"),
 });
 
-const note = JSON.parse(localStorage.getItem("editNote"));
 //component
 const EditNote = () => {
   // Fetching user from the localStorage async
   // Fetching user from the localStorage async
   const [user, setUser] = React.useState(null);
+  const note = JSON.parse(localStorage.getItem("editNote"));
   const [title, setTitle] = React.useState(note.title);
   const [content, setContent] = React.useState(note.content);
 
