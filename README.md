@@ -7,6 +7,7 @@
 - User Registration
 
 - Synchronization with notes daily
+- created with love
 
 ### Tools Used
 
