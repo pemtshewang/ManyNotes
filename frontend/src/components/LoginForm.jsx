@@ -31,7 +31,13 @@ export default function LoginForm() {
     mutationFn: login,
     onSuccess: (data) => {
       console.log(data);
-      localStorage.setItem("user", JSON.stringify(data));
+      document.cookie=`token=${data.token}; path=/`
+      const cleanedData = {
+        id: data.id,
+        name: data.name,
+        email: data.email
+      }
+      localStorage.setItem("user", JSON.stringify(cleanedData));
       navigate(`/user/${data.id}/notes/`);
     },
     onError: (error) => {

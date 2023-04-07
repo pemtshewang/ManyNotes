@@ -10,9 +10,16 @@ import NoteIdContext from "../context/noteIdContext";
 import ViewDialog from "../src/components/ViewNote";
 
 const getUserNotes = async (id) => {
-  const notes = await axios.get(`http://localhost:3000/api/user/${id}/notes`);
+  const cookieArray = decodeURIComponent(document.cookie).split(";");
+  const tokenCookie = cookieArray[0].split("=")[1];
+  const notes = await axios.get(`http://localhost:3000/api/user/${id}/notes`, {
+    headers: {
+      Authorization: `Bearer ${tokenCookie}`
+    }
+  });
   return notes.data;
 };
+
 
 const deleteUserNote = async (noteId) => {
   await axios.delete(`http://localhost:3000/api/notes/${noteId}`);

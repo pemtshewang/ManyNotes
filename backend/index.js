@@ -1,7 +1,7 @@
+require('dotenv').config()
 const express = require("express");
 const app = express();
-const path = require("path");
-const authenticateToken = require("./middleware/authToken");
+const authenticateToken = require("./middleware/authToken")
 const cors = require("cors")
 
 app.use(express.static("public"));
@@ -14,7 +14,7 @@ app.use("/api", require("./routers/user.routes"));
 // authentication route with middleware as authenticateToken
 app.use("/api", require("./routers/auth.routes"));
 // notes route with jwt authentication
-app.use("/api", require("./routers/note.routes"));
+app.use("/api", authenticateToken, require("./routers/note.routes"));
 
 // app.get("/protected", authenticateToken, (req, res) => {
 //     res.send(`Hello ${req.user.name}!`)

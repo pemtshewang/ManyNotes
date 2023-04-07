@@ -23,6 +23,6 @@ module.exports = {
         "w-450": "450px",
       },
     },
-    plugins: [],
+  plugins: [require("daisyui")],
   },
 };
