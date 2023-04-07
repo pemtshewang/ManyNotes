@@ -7,6 +7,7 @@
 - User Registration
 
 - Synchronization with notes daily
+- created with love
 
 ### Tools Used
 
@@ -18,7 +19,3 @@
 
 *Note*
 Send Me PR , I will accept all of your contributions
-
-- [X] - Create signout  function with prompt feature
-- [x] - Create the navbar height to be fixed  according to the logo h and not the height of the dialog content
-- [ ] - add create notes where users can create notes endpoint
