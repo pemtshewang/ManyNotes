@@ -21,7 +21,17 @@ const UserNotePage = () => {
           </div>
         </NavLink>
         <div className="ml-auto py-5 px-9 profile-drop">
-          <span className="hover:text-blue-500">{user.name}</span>
+          <div class="avatar placeholder">
+            <div class="bg-neutral-focus text-neutral-content rounded-full w-8">
+              {/* insert here */}
+              <div class="avatar placeholder">
+                <div class="bg-neutral-focus text-neutral-content rounded-full w-12">
+                  <span>MX</span>
+                </div>
+              </div>
+              {/* <span class="text-xs">{user.name}</span> */}
+            </div>
+          </div>
           <div className=" border-2 border-black flex flex-col px-4 py-3 mt-3 w-max">
             <NavLink className="hover:underline hover:text-red-500 font-raleway">
               Edit My Profile
