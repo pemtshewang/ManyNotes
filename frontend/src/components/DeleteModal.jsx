@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import React from "react"
 
+const cookieArray = decodeURIComponent(document.cookie).split(";");
+const token = cookieArray[0].split("=")[1]
+
 export default function DeleteDialog(props) {
   const { deleteNoteId, setDeleteNoteId } = useContext(NoteIdContext);
   const navigate = useNavigate();
@@ -33,9 +36,15 @@ export default function DeleteDialog(props) {
     if (!user) {
       throw new Error("User is not logged in");
     }
+
     const endpoint = `http://localhost:3000/api/user/${user.id}/note/delete/${noteId}`;
-    await axios.delete(endpoint);
+    await axios.delete(endpoint,{
+      headers:{
+        Authorization: `Bearer ${token}`
+      }
+    });
   };
+
   return (
     <Transition
       show={props.isOpen}

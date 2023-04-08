@@ -21,17 +21,7 @@ const UserNotePage = () => {
           </div>
         </NavLink>
         <div className="ml-auto py-5 px-9 profile-drop">
-          <div class="avatar placeholder">
-            <div class="bg-neutral-focus text-neutral-content rounded-full w-8">
-              {/* insert here */}
-              <div class="avatar placeholder">
-                <div class="bg-neutral-focus text-neutral-content rounded-full w-12">
-                  <span>MX</span>
-                </div>
-              </div>
-              {/* <span class="text-xs">{user.name}</span> */}
-            </div>
-          </div>
+          <span>{user.name}</span>
           <div className=" border-2 border-black flex flex-col px-4 py-3 mt-3 w-max">
             <NavLink className="hover:underline hover:text-red-500 font-raleway">
               Edit My Profile
@@ -54,7 +44,7 @@ const UserNotePage = () => {
             <i>Pem Tshewang</i>
           </p>
         </div>
-        <div className="note-container container mx-auto border-4 border-black p-3">
+        <div className="note-container container mx-auto border-4 border-black p-3 mt-4">
           <Outlet />
         </div>
       </div>

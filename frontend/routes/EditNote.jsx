@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
+const token = decodeURIComponent(document.cookie).split(";")[0].split("=")[1]
+
 const NoteSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
   content: yup.string().required("Content is required"),
@@ -27,7 +29,12 @@ const EditNote = () => {
     const updatedNote = { ...note, title, content }; // update note object with new values
     const res = await axios.put(
       `http://localhost:3000/api/user/${user.id}/note/update/${note.id}`,
-      updatedNote // send updated note object to the server
+      updatedNote,
+      {
+        headers:{
+          Authorization: `Bearer ${token}` 
+        }
+      }
     );
     return res.data;
   };

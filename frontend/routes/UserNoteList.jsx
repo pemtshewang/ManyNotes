@@ -14,15 +14,10 @@ const getUserNotes = async (id) => {
   const tokenCookie = cookieArray[0].split("=")[1];
   const notes = await axios.get(`http://localhost:3000/api/user/${id}/notes`, {
     headers: {
-      Authorization: `Bearer ${tokenCookie}`
-    }
+      Authorization: `Bearer ${tokenCookie}`,
+    },
   });
   return notes.data;
-};
-
-
-const deleteUserNote = async (noteId) => {
-  await axios.delete(`http://localhost:3000/api/notes/${noteId}`);
 };
 
 const UserNoteList = () => {
@@ -31,7 +26,7 @@ const UserNoteList = () => {
   const [isViewOpen, setIsViewOpen] = React.useState(false);
   const [data, setData] = React.useState({
     title: "",
-    content: ""
+    content: "",
   });
   const user = JSON.parse(localStorage.getItem("user"));
 
@@ -49,22 +44,13 @@ const UserNoteList = () => {
     refetch();
   }, [isDeleteOpen]);
 
-  const queryCache = new QueryCache();
-  const deleteNoteMutation = useMutation(deleteUserNote, {
-    onSuccess: () => {
-      queryCache.invalidateQueries(["notes", user.id]);
-    },
-  });
-
   const handleDeleteNote = (id) => {
     setDeleteNoteId(id);
     setIsDeleteOpen(true);
   };
 
   const handleDeleteDialogClose = () => {
-    setIsDeleteOpen(false);
-  };
-
+    setIsDeleteOpen(false); };
   const handleNoteDelete = async () => {
     await deleteNoteMutation.mutateAsync(deleteNoteId);
     setIsDeleteOpen(false);
@@ -88,7 +74,12 @@ const UserNoteList = () => {
           />
         )}
         {isViewOpen && (
-          <ViewDialog isOpen={isViewOpen} setIsOpen={setIsViewOpen} title={data.title} content={data.content} />
+          <ViewDialog
+            isOpen={isViewOpen}
+            setIsOpen={setIsViewOpen}
+            title={data.title}
+            content={data.content}
+          />
         )}
         {isLoading ? (
           <div>Loading...</div>
@@ -107,12 +98,11 @@ const UserNoteList = () => {
                     className="underline"
                     onClick={() => {
                       setData({
-                        title:note.title,
-                        content:note.content
-                      })
-                      setIsViewOpen(true)}
-                    }
-
+                        title: note.title,
+                        content: note.content,
+                      });
+                      setIsViewOpen(true);
+                    }}
                   >
                     {note.title}
                   </NavLink>
