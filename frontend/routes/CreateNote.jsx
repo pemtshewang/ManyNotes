@@ -14,11 +14,11 @@ const NoteSchema = yup.object().shape({
   content: yup.string().required("Content is required"),
 });
 
-const token = decodeURIComponent(document.cookie).split(";")[0].split("=")[1]
  //component
 const CreateNote = () => {
   // Fetching user from the localStorage async
   const [user, setUser] = React.useState(null);
+  const token = decodeURIComponent(document.cookie).split(";")[0].split("=")[1]
   const submitNote = async (note) => {
     const res = await axios.post(
       `http://localhost:3000/api/user/${user.id}/note/create`,

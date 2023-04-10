@@ -5,15 +5,14 @@ import { useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import React from "react"
-
-const cookieArray = decodeURIComponent(document.cookie).split(";");
-const token = cookieArray[0].split("=")[1]
+import React from "react";
 
 export default function DeleteDialog(props) {
   const { deleteNoteId, setDeleteNoteId } = useContext(NoteIdContext);
   const navigate = useNavigate();
   const [user, setUser] = React.useState(null);
+  const cookieArray = decodeURIComponent(document.cookie).split(";");
+  const token = cookieArray[0].split("=")[1];
   useEffect(() => {
     const fetchUser = async () => {
       const userFromStorage = await getUserFromStorage();
@@ -38,10 +37,10 @@ export default function DeleteDialog(props) {
     }
 
     const endpoint = `http://localhost:3000/api/user/${user.id}/note/delete/${noteId}`;
-    await axios.delete(endpoint,{
-      headers:{
-        Authorization: `Bearer ${token}`
-      }
+    await axios.delete(endpoint, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
   };
 

@@ -20,19 +20,23 @@ const UserNotePage = () => {
             <div className="font-raleway text-2xl font-black">Notes</div>
           </div>
         </NavLink>
-        <div className="ml-auto py-5 px-9 profile-drop">
-          <span>{user.name}</span>
-          <div className=" border-2 border-black flex flex-col px-4 py-3 mt-3 w-max">
-            <NavLink className="hover:underline hover:text-red-500 font-raleway">
-              Edit My Profile
-            </NavLink>
-            <NavLink
-              className="hover:underline hover:text-red-500 font-raleway"
-              onClick={() => setIsLogoutDialogOpen(true)}
-            >
-              Logout
-            </NavLink>
+        <div className="ml-auto py-5 px-9 dropdown dropdown-hover dropdown-bottom dropdown-end">
+          <div tabIndex={0} className="avatar placeholder">
+            <div className="bg-neutral-focus text-neutral-content rounded-full w-12">
+              <span>{user.name.split(" ").length>1?`${user.name.split(" ")[0][0]} ${user.name.split(" ")[1][0]}`:user.name[0]}</span>
+            </div>
           </div>
+          <ul tabIndex={0} className="dropdown-content menu p-2 mt-8 shadow bg-base-100 rounded-box gap-2">
+              <NavLink className="hover:underline hover:bg-y-bg font-raleway">
+                Edit My Profile
+              </NavLink>
+              <NavLink
+                className="hover:underline hover:bg-y-bg font-raleway"
+                onClick={() => setIsLogoutDialogOpen(true)}
+              >
+                Logout
+              </NavLink>
+          </ul>
         </div>
       </nav>
       <div className="container m-0">

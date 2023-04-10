@@ -9,7 +9,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
-const token = decodeURIComponent(document.cookie).split(";")[0].split("=")[1]
 
 const NoteSchema = yup.object().shape({
   title: yup.string().required("Title is required"),
@@ -24,6 +23,7 @@ const EditNote = () => {
   const note = JSON.parse(localStorage.getItem("editNote"));
   const [title, setTitle] = React.useState(note.title);
   const [content, setContent] = React.useState(note.content);
+  const token = decodeURIComponent(document.cookie).split(";")[0].split("=")[1]
 
   const submitNote = async () => {
     const updatedNote = { ...note, title, content }; // update note object with new values
